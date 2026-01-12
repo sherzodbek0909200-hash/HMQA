@@ -1,0 +1,93 @@
+
+import React, { useState, useRef, useEffect } from 'react';
+import { geminiService } from '../services/geminiService';
+import { ChatMessage } from '../types';
+
+const CaseSolver: React.FC = () => {
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: 'model', content: "Salom! Men sizning huquqiy va mantiqiy kazuslar bo'yicha yordamchingizman. Kazus shartini yozing, men uni tahlil qilib beraman.", timestamp: new Date() }
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }, [messages, isLoading]);
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
+    const userMessage: ChatMessage = { role: 'user', content: input, timestamp: new Date() };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const response = await geminiService.solveCase(input);
+      setMessages(prev => [...prev, { role: 'model', content: response, timestamp: new Date() }]);
+    } catch (error) {
+      setMessages(prev => [...prev, { role: 'model', content: "Tizimda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.", timestamp: new Date() }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col h-full max-w-4xl mx-auto">
+      <div className="flex items-center gap-4 mb-8">
+        <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl shadow-lg">
+          <i className="fa-solid fa-scale-balanced"></i>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-white">Kazus Yechish</h2>
+          <p className="text-slate-400 text-sm">Professional huquqiy tahlil tizimi</p>
+        </div>
+      </div>
+
+      <div ref={scrollRef} className="flex-1 overflow-y-auto pr-4 space-y-6 scrollbar-hide mb-6">
+        {messages.map((msg, i) => (
+          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}>
+            <div className={`max-w-[85%] p-5 rounded-2xl ${
+              msg.role === 'user' 
+                ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/20' 
+                : 'glass text-slate-200 border-l-4 border-l-indigo-500'
+            }`}>
+              <p className="whitespace-pre-wrap leading-relaxed text-[15px]">{msg.content}</p>
+              <p className="text-[10px] mt-2 opacity-50 text-right">
+                {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </p>
+            </div>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="flex justify-start animate-pulse">
+            <div className="glass p-4 rounded-2xl flex gap-2 items-center">
+              <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce delay-100"></div>
+              <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce delay-200"></div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="glass p-2 rounded-2xl flex items-center gap-2 border-slate-700 sticky bottom-0 shadow-2xl">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+          placeholder="Kazus matnini bu yerga yozing..."
+          className="flex-1 bg-transparent border-none outline-none px-4 py-4 text-white placeholder-slate-500"
+        />
+        <button
+          onClick={handleSend}
+          disabled={isLoading || !input.trim()}
+          className="w-14 h-14 rounded-xl bg-indigo-600 text-white flex items-center justify-center hover:bg-indigo-500 disabled:opacity-50 transition-all shadow-lg"
+        >
+          <i className="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default CaseSolver;

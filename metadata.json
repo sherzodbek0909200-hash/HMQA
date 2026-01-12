@@ -1,0 +1,8 @@
+{
+  "name": "Ziyo AI - Intellektual Platforma",
+  "description": "Ziyo AI - bu matn yaratish, tasvirlar hosil qilish va aqlli qidiruv imkoniyatlarini birlashtirgan zamonaviy sun'iy intellekt platformasi.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
