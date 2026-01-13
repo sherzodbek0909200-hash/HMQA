@@ -15,13 +15,6 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
     { id: ViewType.COLLECTIONS, icon: 'fa-folder-tree', label: 'Topshiriqlar' },
   ];
 
-  const aiItems = [
-    { id: ViewType.SOLVER, icon: 'fa-scale-balanced', label: 'Kazus Yechish' },
-    { id: ViewType.CHAT, icon: 'fa-comments', label: 'Ziyo Chat' },
-    { id: ViewType.IMAGE, icon: 'fa-palette', label: 'Tasvir Yaratish' },
-    { id: ViewType.SEARCH, icon: 'fa-earth-asia', label: 'Aqlli Izlash' },
-  ];
-
   return (
     <aside className="w-20 md:w-64 border-r border-slate-800 flex flex-col glass z-40 select-none">
       <div className="p-8 flex flex-col items-center gap-4 border-b border-slate-800/50">
@@ -46,23 +39,6 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
             className={`w-full flex items-center gap-4 p-3 rounded-xl transition-all duration-300 ${
               currentView === item.id 
                 ? 'bg-blue-600/10 text-white border border-blue-500/20' 
-                : 'text-slate-500 hover:bg-slate-800/50 hover:text-slate-200'
-            }`}
-          >
-            <i className={`fa-solid ${item.icon} w-6 text-center`}></i>
-            <span className="hidden md:block font-bold text-sm">{item.label}</span>
-          </button>
-        ))}
-
-        <div className="my-6 border-t border-slate-800/50"></div>
-        <p className="hidden md:block text-[9px] font-bold text-slate-600 uppercase tracking-[0.2em] mb-2 px-4">AI Imkoniyatlari</p>
-        {aiItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onNavigate(item.id)}
-            className={`w-full flex items-center gap-4 p-3 rounded-xl transition-all duration-300 ${
-              currentView === item.id 
-                ? 'bg-indigo-600/10 text-white border border-indigo-500/20' 
                 : 'text-slate-500 hover:bg-slate-800/50 hover:text-slate-200'
             }`}
           >

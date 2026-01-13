@@ -1,17 +1,29 @@
 
-import React from 'react';
-import { ViewType } from '../types.ts';
+import React, { useState, useEffect } from 'react';
+import { ViewType, CaseCollection, ResultEntry } from '../types.ts';
 
 interface DashboardProps {
   onViewChange: (view: ViewType) => void;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
+  const [stats, setStats] = useState({ collections: 0, results: 0 });
+
+  useEffect(() => {
+    // Xotiradan ma'lumotlarni o'qish
+    const collections: CaseCollection[] = JSON.parse(localStorage.getItem('ziyo_collections') || '[]');
+    const results: ResultEntry[] = JSON.parse(localStorage.getItem('ziyo_global_results') || '[]');
+    setStats({
+      collections: collections.length,
+      results: results.length
+    });
+  }, []);
+
   const actions = [
     { 
       id: ViewType.LIBRARY, 
       title: 'Bilimlar Bazasi', 
-      desc: 'Huquqiy terminlar, kodekslar va qonunchilik asoslari to\'plami.',
+      desc: 'Huquqiy terminlar va kodekslar to\'plami.',
       icon: 'fa-book-bookmark',
       color: 'from-blue-500 to-indigo-600',
       iconColor: 'text-blue-400'
@@ -19,7 +31,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
     { 
       id: ViewType.VALIDATOR, 
       title: 'Javob Tekshiruvi', 
-      desc: 'O\'z yechimingizni etalon javob bilan mantiqiy solishtirish.',
+      desc: 'O\'z yechimingizni mantiqiy solishtirish.',
       icon: 'fa-file-shield',
       color: 'from-amber-500 to-orange-600',
       iconColor: 'text-amber-400'
@@ -27,7 +39,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
     { 
       id: ViewType.COLLECTIONS, 
       title: 'Topshiriqlar', 
-      desc: 'Sizga berilgan kod orqali imtihon kazuslarini yechish.',
+      desc: `Sizda ${stats.collections} ta to'plam mavjud.`,
       icon: 'fa-folder-tree',
       color: 'from-emerald-500 to-teal-600',
       iconColor: 'text-emerald-400'
@@ -46,7 +58,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
 
       <div className="relative p-12 rounded-[3.5rem] overflow-hidden border border-white/5 bg-slate-900/40 shadow-2xl">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-amber-900/10"></div>
-        
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
           <div className="w-40 h-40 md:w-52 md:h-52 bg-white/5 rounded-full flex items-center justify-center border border-white/10 relative p-8 shadow-inner">
             <img 
@@ -54,21 +65,24 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
               className="w-full h-full object-contain gold-glow brightness-110"
               alt="Emblem"
             />
-            <div className="absolute inset-0 rounded-full border-2 border-amber-500/20 animate-pulse"></div>
           </div>
-          
           <div className="text-center md:text-left space-y-6 flex-1">
             <div className="space-y-2">
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight uppercase tracking-tight">
                 HUQUQNI MUHOFAZA QILISH <span className="text-blue-500">AKADEMIYASI</span>
               </h1>
               <p className="text-amber-500 font-bold tracking-[0.3em] text-xs uppercase">
-                O'zbekiston Respublikasi
+                Tahliliy Platforma v2.0 (Xotira Yoqilgan)
               </p>
             </div>
-            <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-              Tinglovchilarning bilim saviyasini monitoring qilish va huquqiy tahlil qilishga mo'ljallangan yagona idoraviy platforma.
-            </p>
+            <div className="flex flex-wrap justify-center md:justify-start gap-4">
+               <div className="px-4 py-2 bg-blue-500/10 rounded-xl border border-blue-500/20 text-blue-400 text-xs font-bold uppercase">
+                  {stats.collections} ta to'plam
+               </div>
+               <div className="px-4 py-2 bg-emerald-500/10 rounded-xl border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase">
+                  {stats.results} ta yechilgan kazus
+               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -88,9 +102,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
               <h3 className="text-2xl font-black text-white leading-tight tracking-tight uppercase">{action.title}</h3>
               <p className="text-slate-500 text-sm leading-relaxed font-medium">{action.desc}</p>
             </div>
-            <div className="pt-2 text-amber-500 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0">
-               <i className="fa-solid fa-arrow-right-long text-2xl"></i>
-            </div>
           </div>
         ))}
       </div>
@@ -105,7 +116,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
           </div>
           <div>
             <h4 className="text-2xl font-black text-white uppercase tracking-tighter">Yangi To'plam Yaratish</h4>
-            <p className="text-slate-500 font-medium">Imtihon yoki o'quv mashg'ulotlari uchun maxsus kazuslar bazasini shakllantiring.</p>
+            <p className="text-slate-500 font-medium">Barcha yaratilgan to'plamlar avtomatik saqlanadi.</p>
           </div>
         </div>
         <button className="px-10 py-4 bg-blue-600 text-white font-black rounded-2xl uppercase tracking-widest text-sm shadow-lg shadow-blue-600/20 group-hover:bg-blue-500 transition-colors">

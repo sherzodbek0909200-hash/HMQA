@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -6,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O'zbekiston Respublikasi Huquqni muhofaza qilish akademiyasi</title>
     
-    <!-- Environment process shim to prevent ReferenceError -->
+    <!-- Robust process shim for browser environments -->
     <script>
-      window.process = { env: { API_KEY: "" } };
+      window.process = window.process || {};
+      window.process.env = window.process.env || {};
+      window.process.env.API_KEY = window.process.env.API_KEY || "";
     </script>
 
     <meta name="description" content="Huquqni muhofaza qilish akademiyasi - Tahliliy Tizimi">
@@ -16,7 +17,7 @@
     <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png">
     
     <script type="text/javascript">
-      // SPA routing hack for GitHub Pages & static hosts
+      // SPA routing hack for static hosts
       (function(l) {
         if (l.search[1] === '/' ) {
           var decoded = l.search.slice(1).split('&').map(function(s) { 
@@ -37,7 +38,15 @@
             font-family: 'Inter', sans-serif;
             background-color: #020617;
             color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
             overflow: hidden;
+        }
+        #root {
+            height: 100%;
+            width: 100%;
         }
         .glass {
             background: rgba(15, 23, 42, 0.7);
@@ -120,6 +129,7 @@
 </head>
 <body>
     <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
+    <!-- Use direct relative path to index.tsx. Ensure the server handles .tsx or rename if environment requires -->
+    <script type="module" src="./index.tsx"></script>
 </body>
 </html>
