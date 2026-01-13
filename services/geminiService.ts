@@ -1,10 +1,20 @@
 import { GoogleGenAI } from "@google/genai";
 
-// API key platforma tomonidan process.env.API_KEY orqali avtomatik taqdim etiladi
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Cloudflare/Vercel env o'zgaruvchilari uchun polyfill bilan ishlash
+const getApiKey = () => {
+  try {
+    return process.env.API_KEY || "";
+  } catch (e) {
+    return "";
+  }
+};
+
+const apiKey = getApiKey();
+const ai = new GoogleGenAI({ apiKey });
 
 export const geminiService = {
   async chat(message: string) {
+    if (!apiKey) throw new Error("API Key sozlanmagan.");
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: message,
@@ -13,17 +23,19 @@ export const geminiService = {
   },
 
   async solveCase(caseText: string) {
+    if (!apiKey) throw new Error("API Key sozlanmagan.");
     const response = await ai.models.generateContent({
       model: 'gemini-3-pro-preview',
       contents: `Quyidagi huquqiy kazusni tahlil qiling va yechimini bering: ${caseText}`,
       config: {
-        systemInstruction: "Siz professional huquqshunos va tahlilchisiz. O'zbekiston qonunchiligiga tayangan holda javob bering."
+        systemInstruction: "Siz professional huquqshunos va tahlilchisiz. O'zbekiston Respublikasi qonunchiligiga tayangan holda javob bering."
       }
     });
     return response.text || "";
   },
 
   async generateImage(prompt: string) {
+    if (!apiKey) throw new Error("API Key sozlanmagan.");
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash-image',
       contents: { parts: [{ text: prompt }] },
@@ -32,17 +44,15 @@ export const geminiService = {
       },
     });
 
-    if (response.candidates?.[0]?.content?.parts) {
-      for (const part of response.candidates[0].content.parts) {
-        if (part.inlineData) {
-          return `data:image/png;base64,${part.inlineData.data}`;
-        }
-      }
+    const part = response.candidates?.[0]?.content?.parts.find(p => p.inlineData);
+    if (part?.inlineData) {
+      return `data:image/png;base64,${part.inlineData.data}`;
     }
-    throw new Error("Rasm yaratib bo'lmadi");
+    throw new Error("Rasm yaratilmadi.");
   },
 
   async searchWithGrounding(query: string) {
+    if (!apiKey) throw new Error("API Key sozlanmagan.");
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: query,
@@ -59,7 +69,7 @@ export const geminiService = {
       .filter((s: any) => s.uri) || [];
 
     return {
-      text: response.text || "Natija topilmadi.",
+      text: response.text || "Natija yo'q.",
       sources: sources
     };
   }
