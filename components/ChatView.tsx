@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { geminiService } from '../services/geminiService';
 import { ChatMessage } from '../types';
@@ -31,7 +30,7 @@ const ChatView: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await geminiService.chat(input, []);
+      const response = await geminiService.chat(input);
       setMessages(prev => [...prev, {
         role: 'model',
         content: response || "Kechirasiz, xatolik yuz berdi.",
@@ -52,7 +51,7 @@ const ChatView: React.FC = () => {
   return (
     <div className="flex flex-col h-full max-w-4xl mx-auto">
       <div className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl">
+        <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl shadow-lg">
           <i className="fa-solid fa-comments"></i>
         </div>
         <div>
@@ -87,18 +86,18 @@ const ChatView: React.FC = () => {
         )}
       </div>
 
-      <div className="glass p-2 rounded-2xl flex items-center gap-2 border-slate-700 sticky bottom-0">
+      <div className="glass p-2 rounded-2xl flex items-center gap-2 border-slate-700 sticky bottom-0 shadow-2xl">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder="Xabar yozing..."
-          className="flex-1 bg-transparent border-none outline-none px-4 py-3 text-white placeholder-slate-500"
+          placeholder="Savolingizni kiriting..."
+          className="flex-1 bg-transparent border-none outline-none px-4 py-4 text-white placeholder-slate-500"
         />
         <button
           onClick={handleSend}
           disabled={isLoading || !input.trim()}
-          className="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center hover:bg-indigo-500 disabled:opacity-50 disabled:bg-slate-800 transition-all"
+          className="w-14 h-14 rounded-xl bg-indigo-600 text-white flex items-center justify-center hover:bg-indigo-500 disabled:opacity-50 transition-all shadow-lg"
         >
           <i className="fa-solid fa-paper-plane"></i>
         </button>
