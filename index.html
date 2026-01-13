@@ -6,12 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HMQ Akademiyasi - Tahliliy Platforma</title>
     
-    <!-- Vercel SEO -->
     <meta name="description" content="O'zbekiston Respublikasi Huquqni muhofaza qilish akademiyasi - Tahliliy Tizimi">
     <meta property="og:title" content="HMQ Akademiya - Tahliliy Tizim">
     <meta property="og:description" content="Lokal tahlil va kazuslarni yechish platformasi">
     <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png">
     
+    <script type="text/javascript">
+      // GitHub Pages SPA routing hack
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -30,26 +43,21 @@
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
-
         .gold-glow {
             filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.4));
         }
-
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
         }
-
         @keyframes rotate-slow {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
         @keyframes shine-sweep {
             0% { left: -100%; }
             100% { left: 200%; }
         }
-
         .shine-effect {
             position: relative;
             overflow: hidden;
@@ -65,12 +73,10 @@
             transform: rotate(30deg);
             animation: shine-sweep 4s infinite;
         }
-
         @keyframes emblem-enter {
             0% { opacity: 0; transform: scale(0.8) translateY(20px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-
         .splash-overlay {
             position: fixed;
             inset: 0;
@@ -81,11 +87,9 @@
             justify-content: center;
             z-index: 1000;
         }
-
         .gerb-anim {
             animation: float 4s ease-in-out infinite, emblem-enter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .loading-ring {
             width: 300px;
             height: 300px;
@@ -94,7 +98,6 @@
             border-radius: 50%;
             animation: rotate-slow 3s linear infinite;
         }
-
         .select-none {
             user-select: none;
             -webkit-user-select: none;
