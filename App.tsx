@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 4000); 
+    const timer = setTimeout(() => setShowSplash(false), 4500); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -40,37 +40,66 @@ const App: React.FC = () => {
   return (
     <>
       {showSplash && (
-        <div className="splash-overlay select-none">
-          <div className="flex flex-col items-center gap-10">
-            <div className="emblem-main relative">
-              <div className="absolute inset-0 bg-blue-500/20 blur-[60px] rounded-full scale-150 animate-pulse"></div>
-              <div className="w-48 h-48 md:w-56 md:h-56 flex items-center justify-center relative z-10">
+        <div className="splash-overlay select-none overflow-hidden">
+          {/* Decorative background elements */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-amber-500/5 blur-[80px] rounded-full"></div>
+
+          <div className="relative flex flex-col items-center gap-12">
+            <div className="relative">
+              {/* Rotating outer ring */}
+              <div className="absolute -inset-8 loading-ring opacity-30"></div>
+              
+              <div className="gerb-anim relative z-10">
                 <img 
-                  src="https://proacademy.uz/assets/images/logo.png" 
-                  alt="Academy Logo" 
-                  className="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(56,189,248,0.4)]"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement!.innerHTML = '<i class="fa-solid fa-shield-halved text-8xl text-blue-400"></i>';
-                  }}
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png" 
+                  alt="Uzbekistan Emblem" 
+                  className="w-48 h-48 md:w-56 md:h-56 object-contain gold-glow"
                 />
               </div>
             </div>
-            <div className="text-center space-y-3 z-10">
-              <h1 className="academy-title text-2xl md:text-4xl font-black uppercase tracking-[0.15em] leading-tight max-w-2xl px-6 text-center">
-                Huquqni muhofaza qilish akademiyasi
-              </h1>
-              <p className="text-blue-400 font-bold tracking-widest text-[10px] md:text-xs uppercase opacity-80">
-                Lokal Tahlil Platformasi
-              </p>
+
+            <div className="text-center space-y-6 z-10">
+              <div className="space-y-2">
+                <h1 className="text-3xl md:text-4xl font-black uppercase tracking-[0.2em] leading-tight text-white">
+                  O'ZBEKISTON RESPUBLIKASI
+                </h1>
+                <h2 className="text-xl md:text-2xl font-bold uppercase tracking-[0.1em] text-blue-400">
+                  Huquqni muhofaza qilish akademiyasi
+                </h2>
+              </div>
+              
+              <div className="flex items-center justify-center gap-4">
+                <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500"></div>
+                <p className="text-amber-500 font-black tracking-[0.4em] text-[10px] md:text-xs uppercase">
+                  Tahliliy Tizim
+                </p>
+                <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500"></div>
+              </div>
             </div>
+          </div>
+
+          <div className="absolute bottom-16 flex flex-col items-center gap-6">
+             <div className="flex gap-2">
+               <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
+               <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse delay-150"></div>
+               <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse delay-300"></div>
+             </div>
+             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.5em]">Xavfsiz ulanish o'rnatilmoqda</p>
           </div>
         </div>
       )}
-      <div className="flex h-screen bg-slate-950 overflow-hidden text-slate-200">
+
+      <div className="flex h-screen bg-[#020617] overflow-hidden text-slate-200">
         <Sidebar currentView={currentView} onNavigate={setCurrentView} />
-        <main className="flex-1 flex flex-col relative overflow-hidden bg-slate-950 p-4 md:p-8 overflow-y-auto scrollbar-hide">
-           {renderView()}
+        <main className="flex-1 flex flex-col relative overflow-hidden p-4 md:p-8 overflow-y-auto scrollbar-hide">
+           {/* Decorative corner accents */}
+           <div className="fixed top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] pointer-events-none"></div>
+           <div className="fixed bottom-0 left-0 w-64 h-64 bg-amber-600/5 blur-[100px] pointer-events-none"></div>
+           
+           <div className="relative z-10">
+            {renderView()}
+           </div>
         </main>
       </div>
     </>

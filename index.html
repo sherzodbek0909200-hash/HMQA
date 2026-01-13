@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huquqni muhofaza qilish akademiyasi - AI Tizimi</title>
+    <title>Huquqni muhofaza qilish akademiyasi - Tizim</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,34 +16,56 @@
             overflow: hidden;
         }
         .glass {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
-        @keyframes emblemRotate {
-            0% { transform: scale(0.5) rotateY(90deg); opacity: 0; filter: brightness(2); }
-            100% { transform: scale(1) rotateY(0deg); opacity: 1; filter: brightness(1); }
+
+        /* Oltin yaltirash effekti */
+        .gold-glow {
+            filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.4));
         }
-        @keyframes glowPulse {
-            0% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
-            50% { box-shadow: 0 0 60px rgba(56, 189, 248, 0.5); }
-            100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
+
+        /* Animatsiyalar */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
-        @keyframes textReveal {
-            0% { letter-spacing: 0.5em; opacity: 0; transform: translateY(10px); }
-            100% { letter-spacing: 0.1em; opacity: 1; transform: translateY(0); }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        @keyframes fadeOut {
-            from { opacity: 1; visibility: visible; }
-            to { opacity: 0; visibility: hidden; }
+
+        @keyframes shine-sweep {
+            0% { left: -100%; }
+            100% { left: 200%; }
         }
-        .emblem-main {
-            animation: emblemRotate 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-            filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.3));
+
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
         }
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -100%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(30deg);
+            animation: shine-sweep 4s infinite;
+        }
+
+        @keyframes emblem-enter {
+            0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
         .splash-overlay {
             position: fixed;
             inset: 0;
@@ -53,20 +75,24 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            animation: fadeOut 0.8s ease-in forwards 3.2s;
         }
-        .academy-title {
-            animation: textReveal 1.5s ease-out forwards 0.5s;
-            opacity: 0;
-            background: linear-gradient(to bottom, #ffffff 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .gerb-anim {
+            animation: float 4s ease-in-out infinite, emblem-enter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        .loading-ring {
+            width: 300px;
+            height: 300px;
+            border: 2px solid transparent;
+            border-top: 2px solid #eab308;
+            border-radius: 50%;
+            animation: rotate-slow 3s linear infinite;
+        }
+
         .select-none {
             user-select: none;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
         }
     </style>
 <script type="importmap">

@@ -13,72 +13,105 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
       title: 'Bilimlar Bazasi', 
       desc: 'Huquqiy terminlar, kodekslar va qonunchilik asoslari to\'plami.',
       icon: 'fa-book-bookmark',
-      color: 'from-blue-500 to-cyan-600'
+      color: 'from-blue-500 to-indigo-600',
+      iconColor: 'text-blue-400'
     },
     { 
       id: ViewType.VALIDATOR, 
       title: 'Javob Tekshiruvi', 
       desc: 'O\'z yechimingizni etalon javob bilan mantiqiy solishtirish.',
       icon: 'fa-file-shield',
-      color: 'from-indigo-600 to-blue-600'
+      color: 'from-amber-500 to-orange-600',
+      iconColor: 'text-amber-400'
     },
     { 
       id: ViewType.COLLECTIONS, 
       title: 'Topshiriqlar', 
       desc: 'Sizga berilgan kod orqali imtihon kazuslarini yechish.',
       icon: 'fa-folder-tree',
-      color: 'from-emerald-500 to-teal-600'
+      color: 'from-emerald-500 to-teal-600',
+      iconColor: 'text-emerald-400'
     }
   ];
 
   return (
-    <div className="max-w-6xl mx-auto py-10 space-y-12 animate-fadeIn select-none">
-      <div className="relative p-10 rounded-[3rem] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-950/40 via-slate-900 to-slate-950 border border-blue-500/10"></div>
-        <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
-          <div className="w-32 h-32 md:w-48 md:h-48 bg-blue-900/10 rounded-full flex items-center justify-center border-4 border-blue-500/10 relative">
-            <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-full"></div>
-            <i className="fa-solid fa-building-columns text-6xl md:text-8xl text-blue-500/30"></i>
+    <div className="max-w-6xl mx-auto py-10 space-y-12 animate-fadeIn select-none relative">
+      {/* Background Watermark Gerb */}
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none">
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png" 
+          alt="Watermark" 
+          className="w-[600px] h-[600px] object-contain"
+        />
+      </div>
+
+      <div className="relative p-12 rounded-[3.5rem] overflow-hidden border border-white/5 bg-slate-900/40">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-amber-900/10"></div>
+        
+        <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
+          <div className="w-40 h-40 md:w-52 md:h-52 bg-white/5 rounded-full flex items-center justify-center border border-white/10 relative p-8">
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png" 
+              className="w-full h-full object-contain gold-glow brightness-110"
+              alt="Emblem"
+            />
+            <div className="absolute inset-0 rounded-full border-2 border-amber-500/20 animate-pulse"></div>
           </div>
-          <div className="text-center md:text-left space-y-4 flex-1">
-            <h1 className="text-3xl md:text-5xl font-black text-white leading-tight uppercase tracking-tight">
-              HUQUQNI MUHOFAZA QILISH <span className="text-blue-500">AKADEMIYASI</span>
-            </h1>
+          
+          <div className="text-center md:text-left space-y-6 flex-1">
+            <div className="space-y-2">
+              <h1 className="text-4xl md:text-6xl font-black text-white leading-tight uppercase tracking-tighter">
+                HMQ <span className="text-blue-500">AKADEMIYASI</span>
+              </h1>
+              <p className="text-amber-500 font-bold tracking-[0.3em] text-xs uppercase">
+                O'zbekiston Respublikasi
+              </p>
+            </div>
             <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-              O'quv jarayonini monitoring qilish va huquqiy bilimlarni mustahkamlash uchun mo'ljallangan yopiq platforma.
+              Tinglovchilarning bilim saviyasini monitoring qilish va tahlil qilishga mo'ljallangan yopiq idoraviy platforma.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {actions.map((action, i) => (
           <div 
             key={i} 
             onClick={() => onViewChange(action.id)}
-            className="glass p-8 rounded-[2.5rem] group cursor-pointer hover:border-blue-500/40 hover:-translate-y-1 transition-all flex flex-col items-center text-center space-y-4 relative overflow-hidden"
+            className="glass p-10 rounded-[3rem] group cursor-pointer hover:border-amber-500/30 hover:-translate-y-2 transition-all flex flex-col items-center text-center space-y-6 relative overflow-hidden shine-effect"
           >
-            <div className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${action.color}`}></div>
-            <div className="w-16 h-16 rounded-2xl bg-slate-900 flex items-center justify-center text-blue-400 text-3xl group-hover:scale-110 transition-transform">
+            <div className={`absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r ${action.color}`}></div>
+            <div className={`w-20 h-20 rounded-[2rem] bg-slate-950 flex items-center justify-center ${action.iconColor} text-4xl group-hover:scale-110 transition-transform shadow-inner`}>
               <i className={`fa-solid ${action.icon}`}></i>
             </div>
-            <h3 className="text-xl font-bold text-white leading-tight">{action.title}</h3>
-            <p className="text-slate-500 text-sm leading-relaxed">{action.desc}</p>
+            <div className="space-y-3">
+              <h3 className="text-2xl font-black text-white leading-tight tracking-tight uppercase">{action.title}</h3>
+              <p className="text-slate-500 text-sm leading-relaxed font-medium">{action.desc}</p>
+            </div>
+            <div className="pt-2 text-amber-500 opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0">
+               <i className="fa-solid fa-arrow-right-long text-2xl"></i>
+            </div>
           </div>
         ))}
       </div>
 
       <div 
         onClick={() => onViewChange(ViewType.CREATOR)}
-        className="glass p-10 rounded-[3rem] border-dashed border-2 border-slate-800 hover:border-blue-500/50 cursor-pointer group transition-all flex items-center gap-6"
+        className="glass p-12 rounded-[3.5rem] border-dashed border-2 border-slate-800 hover:border-blue-500/40 cursor-pointer group transition-all flex flex-col md:flex-row items-center justify-between gap-8 shine-effect"
       >
-        <div className="w-16 h-16 rounded-full bg-slate-900 flex items-center justify-center text-blue-500 text-2xl group-hover:scale-110 transition-transform">
-          <i className="fa-solid fa-plus-circle"></i>
+        <div className="flex items-center gap-8 text-center md:text-left">
+          <div className="w-20 h-20 rounded-full bg-blue-950/40 flex items-center justify-center text-blue-500 text-3xl group-hover:rotate-90 transition-transform border border-blue-500/20">
+            <i className="fa-solid fa-plus-circle"></i>
+          </div>
+          <div>
+            <h4 className="text-3xl font-black text-white uppercase tracking-tighter">Yangi To'plam Yaratish</h4>
+            <p className="text-slate-500 font-medium">Imtihon yoki o'quv mashg'ulotlari uchun maxsus kazuslar bazasini shakllantiring.</p>
+          </div>
         </div>
-        <div>
-          <h4 className="text-2xl font-bold text-white">To'plam Yaratish</h4>
-          <p className="text-slate-500">Yangi o'quv va imtihon kazuslarini tayyorlang (Admin/O'qituvchilar uchun).</p>
-        </div>
+        <button className="px-10 py-4 bg-blue-600 text-white font-black rounded-2xl uppercase tracking-widest text-sm shadow-lg shadow-blue-600/20 group-hover:bg-blue-500 transition-colors">
+          Boshlash
+        </button>
       </div>
     </div>
   );
