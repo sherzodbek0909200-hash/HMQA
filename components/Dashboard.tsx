@@ -9,53 +9,25 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
   const actions = [
     { 
-      id: ViewType.SOLVER, 
-      title: 'Kazus Tahlili', 
-      desc: 'Huquqiy masalalarni mantiqiy va qonuniy tahlil qilish yordamchisi.',
-      icon: 'fa-scale-balanced',
-      color: 'from-blue-600 to-indigo-600'
+      id: ViewType.LIBRARY, 
+      title: 'Bilimlar Bazasi', 
+      desc: 'Huquqiy terminlar, kodekslar va qonunchilik asoslari to\'plami.',
+      icon: 'fa-book-bookmark',
+      color: 'from-blue-500 to-cyan-600'
     },
     { 
       id: ViewType.VALIDATOR, 
       title: 'Javob Tekshiruvi', 
-      desc: 'O\'z yechimingizni qonun hujjatlariga muvofiqligini baholash.',
+      desc: 'O\'z yechimingizni etalon javob bilan mantiqiy solishtirish.',
       icon: 'fa-file-shield',
-      color: 'from-blue-500 to-cyan-600'
-    },
-    { 
-      id: ViewType.CHAT, 
-      title: 'Ziyo Chat', 
-      desc: 'Intellektual suhbatdosh bilan har qanday mavzuda muloqot.',
-      icon: 'fa-comments',
-      color: 'from-indigo-500 to-purple-600'
-    },
-    { 
-      id: ViewType.IMAGE, 
-      title: 'Tasvir Studiyasi', 
-      desc: 'Matn orqali yuqori sifatli tasvirlar yaratish.',
-      icon: 'fa-palette',
-      color: 'from-purple-500 to-pink-600'
-    },
-    { 
-      id: ViewType.SEARCH, 
-      title: 'Aqlli Qidiruv', 
-      desc: 'Internetdagi ma\'lumotlarni AI tahlili bilan qidirish.',
-      icon: 'fa-magnifying-glass',
-      color: 'from-emerald-500 to-blue-600'
-    },
-    { 
-      id: ViewType.CREATOR, 
-      title: 'To\'plam Yaratish', 
-      desc: 'Xodimlar yoki talabalar uchun maxsus imtihon kazuslarini tayyorlash.',
-      icon: 'fa-plus-circle',
-      color: 'from-slate-600 to-blue-800'
+      color: 'from-indigo-600 to-blue-600'
     },
     { 
       id: ViewType.COLLECTIONS, 
       title: 'Topshiriqlar', 
-      desc: 'Tayyorlangan topshiriqlarni kod orqali yuklash va yechish.',
+      desc: 'Sizga berilgan kod orqali imtihon kazuslarini yechish.',
       icon: 'fa-folder-tree',
-      color: 'from-blue-700 to-blue-900'
+      color: 'from-emerald-500 to-teal-600'
     }
   ];
 
@@ -73,23 +45,13 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
               HUQUQNI MUHOFAZA QILISH <span className="text-blue-500">AKADEMIYASI</span>
             </h1>
             <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-              Akademiya tinglovchilari va xodimlari uchun ixtisoslashgan intellektual tahlil va monitoring tizimi.
+              O'quv jarayonini monitoring qilish va huquqiy bilimlarni mustahkamlash uchun mo'ljallangan yopiq platforma.
             </p>
-            <div className="flex flex-wrap justify-center md:justify-start gap-4">
-               <div className="flex items-center gap-2 px-4 py-2 bg-slate-900/50 rounded-xl border border-slate-800">
-                  <i className="fa-solid fa-shield-check text-blue-500"></i>
-                  <span className="text-[10px] font-bold text-slate-300 uppercase">Prokuratura nazorati</span>
-               </div>
-               <div className="flex items-center gap-2 px-4 py-2 bg-slate-900/50 rounded-xl border border-slate-800">
-                  <i className="fa-solid fa-gavel text-blue-500"></i>
-                  <span className="text-[10px] font-bold text-slate-300 uppercase">Sud-huquq islohotlari</span>
-               </div>
-            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {actions.map((action, i) => (
           <div 
             key={i} 
@@ -102,26 +64,21 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
             </div>
             <h3 className="text-xl font-bold text-white leading-tight">{action.title}</h3>
             <p className="text-slate-500 text-sm leading-relaxed">{action.desc}</p>
-            <div className="pt-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
-              <i className="fa-solid fa-circle-arrow-right text-2xl"></i>
-            </div>
           </div>
         ))}
       </div>
 
-      <div className="glass p-10 rounded-[3rem] border-dashed border-2 border-slate-800">
-         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="space-y-2">
-              <h4 className="text-2xl font-bold text-white">O'quv topshiriqlarini yuklash</h4>
-              <p className="text-slate-500 italic">Akademiya tomonidan berilgan maxsus kod orqali imtihon kazuslarini oching.</p>
-            </div>
-            <button 
-              onClick={() => onViewChange(ViewType.COLLECTIONS)}
-              className="px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl shadow-xl shadow-blue-600/20 transition-all border border-blue-400/20"
-            >
-              Topshiriqlarni ochish
-            </button>
-         </div>
+      <div 
+        onClick={() => onViewChange(ViewType.CREATOR)}
+        className="glass p-10 rounded-[3rem] border-dashed border-2 border-slate-800 hover:border-blue-500/50 cursor-pointer group transition-all flex items-center gap-6"
+      >
+        <div className="w-16 h-16 rounded-full bg-slate-900 flex items-center justify-center text-blue-500 text-2xl group-hover:scale-110 transition-transform">
+          <i className="fa-solid fa-plus-circle"></i>
+        </div>
+        <div>
+          <h4 className="text-2xl font-bold text-white">To'plam Yaratish</h4>
+          <p className="text-slate-500">Yangi o'quv va imtihon kazuslarini tayyorlang (Admin/O'qituvchilar uchun).</p>
+        </div>
       </div>
     </div>
   );

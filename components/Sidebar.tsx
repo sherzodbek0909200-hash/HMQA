@@ -10,11 +10,8 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
   const menuItems = [
     { id: ViewType.DASHBOARD, icon: 'fa-house', label: 'Bosh Sahifa' },
-    { id: ViewType.SOLVER, icon: 'fa-scale-balanced', label: 'Kazus Tahlili' },
-    { id: ViewType.VALIDATOR, icon: 'fa-file-shield', label: 'Javobni Tekshirish' },
-    { id: ViewType.CHAT, icon: 'fa-comments', label: 'Ziyo Chat' },
-    { id: ViewType.IMAGE, icon: 'fa-palette', label: 'Tasvir Studiyasi' },
-    { id: ViewType.SEARCH, icon: 'fa-magnifying-glass', label: 'Aqlli Qidiruv' },
+    { id: ViewType.LIBRARY, icon: 'fa-book-bookmark', label: 'Bilimlar Bazasi' },
+    { id: ViewType.VALIDATOR, icon: 'fa-file-shield', label: 'Javob Tekshiruvi' },
     { id: ViewType.CREATOR, icon: 'fa-plus-circle', label: 'To\'plam Yaratish' },
     { id: ViewType.COLLECTIONS, icon: 'fa-folder-tree', label: 'Topshiriqlar' },
   ];
@@ -27,7 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
         </div>
         <div className="hidden md:block overflow-hidden">
           <span className="block font-black text-[11px] leading-tight text-white uppercase tracking-tighter">HMQ Akademiyasi</span>
-          <span className="block text-[8px] text-blue-400 font-bold uppercase tracking-widest opacity-70">AI Platform</span>
+          <span className="block text-[8px] text-blue-400 font-bold uppercase tracking-widest opacity-70">Platforma</span>
         </div>
       </div>
 
@@ -58,14 +55,6 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
           <i className="fa-solid fa-user-tie w-6 text-center text-lg"></i>
           <span className="hidden md:block font-bold text-sm uppercase tracking-tighter">Admin Panel</span>
         </button>
-        
-        <div className="hidden md:block p-4 rounded-2xl bg-blue-950/20 border border-blue-900/30">
-          <p className="text-[9px] text-blue-400 font-black mb-1.5 uppercase tracking-widest opacity-60">Xavfsizlik darajasi</p>
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
-            <span className="text-[10px] font-bold text-slate-400">MAHFY ALOQA</span>
-          </div>
-        </div>
       </div>
     </aside>
   );
