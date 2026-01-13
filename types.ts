@@ -6,7 +6,10 @@ export enum ViewType {
   VALIDATOR = 'validator',
   COLLECTIONS = 'collections',
   CREATOR = 'creator',
-  ADMIN = 'admin'
+  ADMIN = 'admin',
+  CHAT = 'chat',
+  IMAGE = 'image',
+  SEARCH = 'search'
 }
 
 export interface UserProfile {
@@ -39,7 +42,6 @@ export interface CaseCollection {
   createdAt: string;
 }
 
-// Added missing interfaces for AI-powered views
 export interface ChatMessage {
   role: 'user' | 'model';
   content: string;

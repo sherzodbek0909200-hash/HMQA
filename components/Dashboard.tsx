@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ViewType } from '../types';
+import { ViewType } from '../types.ts';
 
 interface DashboardProps {
   onViewChange: (view: ViewType) => void;
@@ -36,7 +36,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
 
   return (
     <div className="max-w-6xl mx-auto py-10 space-y-12 animate-fadeIn select-none relative">
-      {/* Background Watermark Gerb */}
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none">
         <img 
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png" 
@@ -45,11 +44,11 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
         />
       </div>
 
-      <div className="relative p-12 rounded-[3.5rem] overflow-hidden border border-white/5 bg-slate-900/40">
+      <div className="relative p-12 rounded-[3.5rem] overflow-hidden border border-white/5 bg-slate-900/40 shadow-2xl">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-amber-900/10"></div>
         
         <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
-          <div className="w-40 h-40 md:w-52 md:h-52 bg-white/5 rounded-full flex items-center justify-center border border-white/10 relative p-8">
+          <div className="w-40 h-40 md:w-52 md:h-52 bg-white/5 rounded-full flex items-center justify-center border border-white/10 relative p-8 shadow-inner">
             <img 
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png" 
               className="w-full h-full object-contain gold-glow brightness-110"
@@ -60,15 +59,15 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
           
           <div className="text-center md:text-left space-y-6 flex-1">
             <div className="space-y-2">
-              <h1 className="text-4xl md:text-6xl font-black text-white leading-tight uppercase tracking-tighter">
-                HMQ <span className="text-blue-500">AKADEMIYASI</span>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight uppercase tracking-tight">
+                HUQUQNI MUHOFAZA QILISH <span className="text-blue-500">AKADEMIYASI</span>
               </h1>
               <p className="text-amber-500 font-bold tracking-[0.3em] text-xs uppercase">
                 O'zbekiston Respublikasi
               </p>
             </div>
             <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-              Tinglovchilarning bilim saviyasini monitoring qilish va tahlil qilishga mo'ljallangan yopiq idoraviy platforma.
+              Tinglovchilarning bilim saviyasini monitoring qilish va huquqiy tahlil qilishga mo'ljallangan yagona idoraviy platforma.
             </p>
           </div>
         </div>
@@ -105,7 +104,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
             <i className="fa-solid fa-plus-circle"></i>
           </div>
           <div>
-            <h4 className="text-3xl font-black text-white uppercase tracking-tighter">Yangi To'plam Yaratish</h4>
+            <h4 className="text-2xl font-black text-white uppercase tracking-tighter">Yangi To'plam Yaratish</h4>
             <p className="text-slate-500 font-medium">Imtihon yoki o'quv mashg'ulotlari uchun maxsus kazuslar bazasini shakllantiring.</p>
           </div>
         </div>

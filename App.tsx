@@ -1,21 +1,24 @@
 
 import React, { useState, useEffect } from 'react';
-import { ViewType } from './types';
-import Sidebar from './components/Sidebar';
-import CaseValidator from './components/CaseValidator';
-import CaseCollections from './components/CaseCollections';
-import CaseCreator from './components/CaseCreator';
-import Dashboard from './components/Dashboard';
-import AdminView from './components/AdminView';
-import LibraryView from './components/LibraryView';
+import { ViewType } from './types.ts';
+import Sidebar from './components/Sidebar.tsx';
+import CaseValidator from './components/CaseValidator.tsx';
+import CaseCollections from './components/CaseCollections.tsx';
+import CaseCreator from './components/CaseCreator.tsx';
+import Dashboard from './components/Dashboard.tsx';
+import AdminView from './components/AdminView.tsx';
+import LibraryView from './components/LibraryView.tsx';
+import ChatView from './components/ChatView.tsx';
+import ImageView from './components/ImageView.tsx';
+import SearchView from './components/SearchView.tsx';
+import CaseSolver from './components/CaseSolver.tsx';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewType>(ViewType.DASHBOARD);
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    // Vercel-da yuklanish tezligini hisobga olgan holda splash vaqti
-    const timer = setTimeout(() => setShowSplash(false), 4000); 
+    const timer = setTimeout(() => setShowSplash(false), 3000); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -33,6 +36,14 @@ const App: React.FC = () => {
         return <AdminView />;
       case ViewType.LIBRARY:
         return <LibraryView />;
+      case ViewType.CHAT:
+        return <ChatView />;
+      case ViewType.IMAGE:
+        return <ImageView />;
+      case ViewType.SEARCH:
+        return <SearchView />;
+      case ViewType.SOLVER:
+        return <CaseSolver />;
       default:
         return <Dashboard onViewChange={setCurrentView} />;
     }
@@ -41,14 +52,11 @@ const App: React.FC = () => {
   return (
     <>
       {showSplash && (
-        <div className="splash-overlay select-none overflow-hidden">
+        <div className="splash-overlay select-none overflow-hidden animate-fadeIn">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-amber-500/5 blur-[80px] rounded-full"></div>
-
           <div className="relative flex flex-col items-center gap-12">
             <div className="relative">
               <div className="absolute -inset-8 loading-ring opacity-30"></div>
-              
               <div className="gerb-anim relative z-10">
                 <img 
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png" 
@@ -57,34 +65,23 @@ const App: React.FC = () => {
                 />
               </div>
             </div>
-
             <div className="text-center space-y-6 z-10">
               <div className="space-y-2">
-                <h1 className="text-3xl md:text-4xl font-black uppercase tracking-[0.2em] leading-tight text-white">
+                <h1 className="text-2xl md:text-3xl font-black uppercase tracking-[0.2em] leading-tight text-white">
                   O'ZBEKISTON RESPUBLIKASI
                 </h1>
-                <h2 className="text-xl md:text-2xl font-bold uppercase tracking-[0.1em] text-blue-400">
+                <h2 className="text-lg md:text-xl font-bold uppercase tracking-[0.1em] text-blue-400">
                   Huquqni muhofaza qilish akademiyasi
                 </h2>
               </div>
-              
-              <div className="flex items-center justify-center gap-4">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500"></div>
-                <p className="text-amber-500 font-black tracking-[0.4em] text-[10px] md:text-xs uppercase">
-                  Tahliliy Tizim
-                </p>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500"></div>
-              </div>
             </div>
           </div>
-
           <div className="absolute bottom-16 flex flex-col items-center gap-6">
              <div className="flex gap-2">
                <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
                <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse delay-150"></div>
                <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse delay-300"></div>
              </div>
-             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.5em]">Tizim yuklanmoqda</p>
           </div>
         </div>
       )}
@@ -94,7 +91,6 @@ const App: React.FC = () => {
         <main className="flex-1 flex flex-col relative overflow-hidden p-4 md:p-8 overflow-y-auto scrollbar-hide">
            <div className="fixed top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] pointer-events-none"></div>
            <div className="fixed bottom-0 left-0 w-64 h-64 bg-amber-600/5 blur-[100px] pointer-events-none"></div>
-           
            <div className="relative z-10">
             {renderView()}
            </div>
