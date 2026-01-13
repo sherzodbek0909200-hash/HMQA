@@ -14,7 +14,8 @@ const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 4500); 
+    // Vercel-da yuklanish tezligini hisobga olgan holda splash vaqti
+    const timer = setTimeout(() => setShowSplash(false), 4000); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -41,13 +42,11 @@ const App: React.FC = () => {
     <>
       {showSplash && (
         <div className="splash-overlay select-none overflow-hidden">
-          {/* Decorative background elements */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-amber-500/5 blur-[80px] rounded-full"></div>
 
           <div className="relative flex flex-col items-center gap-12">
             <div className="relative">
-              {/* Rotating outer ring */}
               <div className="absolute -inset-8 loading-ring opacity-30"></div>
               
               <div className="gerb-anim relative z-10">
@@ -85,7 +84,7 @@ const App: React.FC = () => {
                <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse delay-150"></div>
                <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse delay-300"></div>
              </div>
-             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.5em]">Xavfsiz ulanish o'rnatilmoqda</p>
+             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.5em]">Tizim yuklanmoqda</p>
           </div>
         </div>
       )}
@@ -93,7 +92,6 @@ const App: React.FC = () => {
       <div className="flex h-screen bg-[#020617] overflow-hidden text-slate-200">
         <Sidebar currentView={currentView} onNavigate={setCurrentView} />
         <main className="flex-1 flex flex-col relative overflow-hidden p-4 md:p-8 overflow-y-auto scrollbar-hide">
-           {/* Decorative corner accents */}
            <div className="fixed top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[100px] pointer-events-none"></div>
            <div className="fixed bottom-0 left-0 w-64 h-64 bg-amber-600/5 blur-[100px] pointer-events-none"></div>
            

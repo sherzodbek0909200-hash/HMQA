@@ -1,8 +1,17 @@
 {
-  "name": "Ziyo AI - Intellektual Platforma",
-  "description": "Ziyo AI - bu matn yaratish, tasvirlar hosil qilish va aqlli qidiruv imkoniyatlarini birlashtirgan zamonaviy sun'iy intellekt platformasi.",
-  "requestFramePermissions": [
-    "camera",
-    "microphone"
-  ]
+  "name": "HMQ Akademiyasi - Tahliliy Tizim",
+  "short_name": "HMQ Akademiya",
+  "description": "O'zbekiston Respublikasi Huquqni muhofaza qilish akademiyasi tinglovchilari uchun lokal tahliliy platforma.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Emblem_of_Uzbekistan.svg/1024px-Emblem_of_Uzbekistan.svg.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "requestFramePermissions": []
 }
